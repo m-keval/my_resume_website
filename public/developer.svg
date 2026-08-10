@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none">
+  <!-- Developer silhouette placeholder (transparent background) -->
+  <!-- Desk -->
+  <rect x="40" y="420" width="320" height="18" rx="4" fill="#71717a"/>
+  <rect x="70" y="438" width="16" height="82" fill="#52525b"/>
+  <rect x="300" y="438" width="16" height="82" fill="#52525b"/>
+  <!-- Monitor -->
+  <rect x="120" y="250" width="170" height="120" rx="10" fill="#3f3f46"/>
+  <rect x="135" y="265" width="140" height="90" rx="6" fill="#d4d4d8"/>
+  <rect x="190" y="370" width="30" height="10" fill="#3f3f46"/>
+  <rect x="180" y="380" width="50" height="12" fill="#3f3f46"/>
+  <!-- Body -->
+  <path d="M200 190 a34 34 0 1 1 0.1 0" fill="#3f3f46"/>
+  <path d="M150 300 q-6 95 40 120 l20 0 q-6 -40 6 -80 l-6 -70 z" fill="#52525b"/>
+  <path d="M250 300 q6 95 -40 120 l-20 0 q6 -40 -6 -80 l6 -70 z" fill="#52525b"/>
+  <!-- Arms -->
+  <path d="M158 340 q30 8 60 0" stroke="#52525b" stroke-width="16" stroke-linecap="round"/>
+  <path d="M242 340 q-30 8 -60 0" stroke="#52525b" stroke-width="16" stroke-linecap="round"/>
+  <!-- Head -->
+  <circle cx="200" cy="160" r="40" fill="#3f3f46"/>
+  <path d="M168 150 a32 32 0 0 1 64 0 l0 8 a32 32 0 0 1 -64 0 z" fill="#27272a"/>
+</svg>
