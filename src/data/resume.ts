@@ -14,7 +14,7 @@ export const resumeData = {
   skills: [
     {
       category: "Frameworks & Tools",
-      items: ["Flutter", "Dart", "Firebase", "REST APIs", "GraphQL"],
+      items: ["Flutter", "Dart", "Firebase", "Next.js", "React", "REST APIs", "GraphQL"],
     },
     {
       category: "Architecture",
@@ -26,7 +26,7 @@ export const resumeData = {
     },
     {
       category: "Database",
-      items: ["Firebase Firestore", "Hive", "Sqflite"],
+      items: ["PostgreSQL", "Firebase Firestore", "Hive", "Sqflite"],
     },
     {
       category: "Integrations",
@@ -52,7 +52,7 @@ export const resumeData = {
       period: "May 2021 – Present",
       location: "Surat, Gujarat",
       responsibilities: [
-        "Designed and developed 8+ full-cycle mobile applications, published successfully on Play Store and App Store.",
+        "Designed and developed 20+ full-cycle mobile applications, published successfully on Play Store and App Store.",
         "Managed end-to-end app delivery — architecture setup, UI development, API integration, QA testing, and deployment.",
         "Configured App Store Connect and Google Play Console, handled signing keys, app bundles, release notes, and analytics.",
         "Integrated advanced Firebase modules (Auth, Crashlytics, Cloud Messaging, Dynamic Links).",

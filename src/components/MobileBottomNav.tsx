@@ -4,22 +4,24 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   Home,
-  Briefcase,
+  User,
+  Layers3,
   Code2,
-  FolderOpen,
-  GraduationCap,
+  Mail,
 } from "lucide-react";
+import { useLenis } from "lenis/react";
 
 const navItems = [
   { id: "hero", icon: Home, label: "Home" },
-  { id: "services", icon: Briefcase, label: "Services" },
-  { id: "skills", icon: Code2, label: "Skills" },
-  { id: "experience", icon: FolderOpen, label: "Work" },
-  { id: "projects", icon: GraduationCap, label: "Projects" },
+  { id: "case-studies", icon: Layers3, label: "Work" },
+  { id: "about", icon: User, label: "About" },
+  { id: "skills", icon: Code2, label: "Toolkit" },
+  { id: "contact", icon: Mail, label: "Contact" },
 ];
 
 export function MobileBottomNav() {
   const [active, setActive] = useState("hero");
+  const lenis = useLenis();
 
   const getSectionOffsets = useCallback(() => {
     return navItems
@@ -32,11 +34,10 @@ export function MobileBottomNav() {
       .filter(Boolean) as { id: string; top: number; height: number }[];
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
+  const updateActiveSection = useCallback(
+    (currentScrollY: number) => {
       const viewportHeight = window.innerHeight;
-      const triggerPoint = scrollY + viewportHeight * 0.35;
+      const triggerPoint = currentScrollY + viewportHeight * 0.35;
 
       const offsets = getSectionOffsets();
       let currentSection = "hero";
@@ -50,23 +51,39 @@ export function MobileBottomNav() {
       }
 
       setActive(currentSection);
+    },
+    [getSectionOffsets]
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      updateActiveSection(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [getSectionOffsets]);
+  }, [updateActiveSection]);
+
+  useLenis((instance) => {
+    updateActiveSection(instance.scroll);
+  });
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 16;
-      window.scrollTo({ top, behavior: "smooth" });
+    if (lenis) {
+      lenis.scrollTo(id === "hero" ? 0 : `#${id}`, { offset: -88, duration: 1.2 });
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 88;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
     }
   };
 
   return (
     <motion.nav
+      aria-label="Mobile navigation"
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.6, type: "spring", stiffness: 100, damping: 15 }}
@@ -80,7 +97,8 @@ export function MobileBottomNav() {
             <button
               key={item.id}
               onClick={() => scrollTo(item.id)}
-              className="relative flex-1 min-w-0 flex flex-col items-center justify-center gap-1 py-1.5 group"
+              aria-current={isActive ? "location" : undefined}
+              className="relative flex-1 min-w-0 flex flex-col items-center justify-center gap-1 min-h-12 py-1.5 group"
             >
               {isActive && (
                 <motion.div

@@ -29,7 +29,7 @@ export function Education() {
       >
         <div className="space-y-8">
           <motion.div variants={itemVariants}>
-            <SectionHeading index="05" label="Background" title="Education" />
+            <SectionHeading index="06" label="Background" title="Education" />
           </motion.div>
           <div>
             {resumeData.education.map((edu, index) => (
@@ -50,7 +50,7 @@ export function Education() {
 
         <div className="space-y-8">
           <motion.div variants={itemVariants}>
-            <SectionHeading index="06" label="Beyond code" title="Interests" />
+            <SectionHeading index="07" label="Beyond code" title="Interests" />
           </motion.div>
           <motion.div variants={itemVariants} className="flex flex-wrap gap-2.5">
             {resumeData.interests.map((interest, index) => (

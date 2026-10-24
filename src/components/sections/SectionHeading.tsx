@@ -2,7 +2,7 @@
 
 export function MicroLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+    <span className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
       {children}
     </span>
   );
@@ -13,18 +13,17 @@ export function SectionHeading({
   label,
   title,
 }: {
-  index: string;
+  index?: string;
   label: string;
   title: string;
 }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <div className="flex items-center gap-4">
-        <span className="font-mono text-sm text-muted-foreground tabular-nums">{index}</span>
-        <span className="h-px w-10 bg-border" />
-        <MicroLabel>{label}</MicroLabel>
+        {index && <span className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 font-mono text-xs text-primary tabular-nums">{index}</span>}
+                <MicroLabel>{label}</MicroLabel>
       </div>
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
+      <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.035em] text-foreground">
         {title}
       </h2>
     </div>

@@ -31,12 +31,12 @@ export function Projects() {
           <SectionHeading index="04" label="Selected work" title="Key Projects" />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-border border border-border rounded-xl overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           {resumeData.projects.map((project, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group bg-background p-8 hover:bg-accent transition-colors"
+              className="creative-card group min-w-0 rounded-3xl border border-border bg-card p-5 sm:p-8 hover:bg-accent/50 transition-colors"
             >
               <div className="flex items-baseline gap-4">
                 <span className="font-mono text-sm text-muted-foreground tabular-nums">

@@ -1,130 +1,66 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Image from "next/image";
+import type { CSSProperties } from "react";
+import { Braces, Workflow, Rocket, Database, PlugZap, GitBranch, ShieldCheck, Sparkles, Layers3, Blocks, Share2, Waves, Zap, KeyRound, Hexagon, Link2, Fingerprint, Bell, Code2, ScanLine, TestTube2, LayoutGrid, Workflow as Pipeline, type LucideIcon } from "lucide-react";
 import { resumeData } from "@/data/resume";
 import { SectionHeading } from "./SectionHeading";
-import { 
-  Layers, Blocks, Share2, Waves, Zap, Key, Hexagon, 
-  CreditCard, Link, Fingerprint, Bell, Code2, Film, 
-  Sparkles, Layout, Terminal
-} from "lucide-react";
+
+const icons = [Braces, Workflow, Rocket, Database, PlugZap, GitBranch, ShieldCheck, Sparkles];
+
+const brandLogos: Record<string, string> = {
+  Flutter: "flutter", Dart: "dart", Firebase: "firebase", "Next.js": "nextdotjs", React: "react",
+  PostgreSQL: "postgresql", "REST APIs": "postman", GraphQL: "graphql",
+  "Play Console": "googleplay", "App Store Connect": "appstore", "Firebase Firestore": "firebase",
+  Sqflite: "sqlite", Stripe: "stripe", Razorpay: "razorpay", Git: "git", GitHub: "github",
+  Bitbucket: "bitbucket", Codemagic: "codemagic", "GitHub Actions": "githubactions",
+  Lottie: "lottiefiles", Rive: "rive",
+};
+const brandAccents: Record<string, string> = {
+  Flutter: "#38bdf8", Dart: "#22d3ee", Firebase: "#fbbf24", "Next.js": "#94a3b8", React: "#22d3ee",
+  PostgreSQL: "#60a5fa", "REST APIs": "#fb923c", GraphQL: "#f472b6", Stripe: "#a78bfa",
+  Git: "#fb923c", GitHub: "#94a3b8", "Play Console": "#34d399", "App Store Connect": "#60a5fa",
+  "Firebase Firestore": "#fbbf24", Sqflite: "#60a5fa", Razorpay: "#818cf8", Bitbucket: "#60a5fa",
+  Codemagic: "#f472b6", "GitHub Actions": "#60a5fa", Lottie: "#2dd4bf", Rive: "#fbbf24",
+};
+const conceptIcons: Record<string, LucideIcon> = {
+  "Clean Architecture": Layers3, BLoC: Blocks, Provider: Share2, Riverpod: Waves, GetX: Zap,
+  "Build Signing": KeyRound, "CI/CD": Pipeline, Hive: Hexagon, "Branch.io": Link2,
+  "Google/Apple Sign-In": Fingerprint, "Push Notifications": Bell, "Dynamic Links": Link2,
+  "Unit Testing": TestTube2, "Widget Testing": ScanLine, "Integration Testing": ShieldCheck,
+  "Custom Animations": Sparkles, "Responsive UI": LayoutGrid,
+};
+
+function ToolIcon({ name }: { name: string }) {
+  const logo = brandLogos[name];
+  const Icon = conceptIcons[name] ?? Code2;
+  return (
+    <span className={`toolkit-chip-icon flex size-6 shrink-0 items-center justify-center rounded-full ${logo ? "border border-black/10 bg-white" : "border border-primary/15 bg-primary/10 text-primary"}`}>
+      {logo ? <Image src={`/logos/${logo}.svg`} alt="" aria-hidden="true" width={14} height={14} /> : <Icon aria-hidden="true" className="size-3.5" />}
+    </span>
+  );
+}
 
 export function Skills() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 80, damping: 15 } },
-  };
-
   return (
-    <section id="skills" className="flex flex-col justify-center py-14 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={containerVariants}
-        className="space-y-12"
-      >
-        <motion.div variants={itemVariants}>
-          <SectionHeading index="02" label="Capabilities" title="Core Skills" />
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {resumeData.skills.map((skillGroup, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="group rounded-xl border border-border bg-background p-6 hover:bg-accent hover:border-foreground/20 transition-all duration-300"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="text-base font-semibold tracking-tight text-foreground">
-                  {skillGroup.category}
-                </h3>
-                <span className="font-mono text-xs text-muted-foreground tabular-nums">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {skillGroup.items.map((skill, skillIdx) => {
-                  const skillIconMap: Record<string, string> = {
-                    "Flutter": "flutter",
-                    "Dart": "dart",
-                    "Firebase": "firebase",
-                    "GraphQL": "graphql",
-                    "Firebase Firestore": "firebase",
-                    "Sqflite": "sqlite",
-                    "Git": "git",
-                    "GitHub": "github",
-                    "Bitbucket": "bitbucket",
-                    "GitHub Actions": "githubactions",
-                    "Figma": "figma",
-                    "Photoshop": "photoshop",
-                    "Illustrator": "illustrator",
-                    "Play Console": "android",
-                    "App Store Connect": "apple",
-                    "REST APIs": "postman",
-                    "CI/CD": "docker", 
-                  };
-                  
-                  const iconName = skillIconMap[skill];
-                  
-                  const getLucideIcon = (skillName: string) => {
-                    const iconClass = "w-4 h-4 text-foreground/70";
-                    switch (skillName) {
-                      case "Clean Architecture": return <Layers className={iconClass} />;
-                      case "BLoC": return <Blocks className={iconClass} />;
-                      case "Provider": return <Share2 className={iconClass} />;
-                      case "Riverpod": return <Waves className={iconClass} />;
-                      case "GetX": return <Zap className={iconClass} />;
-                      case "Build Signing": return <Key className={iconClass} />;
-                      case "Hive": return <Hexagon className={iconClass} />;
-                      case "Stripe": 
-                      case "Razorpay": return <CreditCard className={iconClass} />;
-                      case "Branch.io": return <Link className={iconClass} />;
-                      case "Google/Apple Sign-In": return <Fingerprint className={iconClass} />;
-                      case "Push Notifications": return <Bell className={iconClass} />;
-                      case "Dynamic Links": return <Link className={iconClass} />;
-                      case "Unit Testing": 
-                      case "Widget Testing": 
-                      case "Integration Testing": return <Code2 className={iconClass} />;
-                      case "Lottie": 
-                      case "Rive": return <Film className={iconClass} />;
-                      case "Custom Animations": return <Sparkles className={iconClass} />;
-                      case "Responsive UI": return <Layout className={iconClass} />;
-                      default: return <Terminal className={iconClass} />;
-                    }
-                  };
-                  
-                  return (
-                    <span
-                      key={skillIdx}
-                      className="flex items-center gap-2 rounded-full border border-border bg-background py-1.5 pl-2 pr-3.5 text-sm text-foreground/80 group-hover:border-foreground/20 transition-colors"
-                    >
-                      {iconName ? (
-                        <img
-                          src={`https://skillicons.dev/icons?i=${iconName}`}
-                          alt={`${skill} logo`}
-                          className="w-4 h-4 rounded-sm"
-                        />
-                      ) : (
-                        getLucideIcon(skill)
-                      )}
-                      <span>{skill}</span>
-                    </span>
-                  );
-                })}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+    <section id="skills" className="mx-auto max-w-5xl px-5 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <SectionHeading label="How I build" title="My everyday toolkit" />
+      <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">A focused set of tools for mobile and web apps, thoughtful interfaces, and reliable data.</p>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        {resumeData.skills.map((group, index) => {
+          const Icon = icons[index];
+          return (
+            <article key={group.category} className="min-w-0 rounded-2xl border border-border bg-card/60 p-4 sm:p-5">
+              <h3 className="mb-4 flex items-center gap-2.5 text-sm font-semibold"><Icon aria-hidden="true" className="size-4 shrink-0 text-primary" />{group.category}</h3>
+              <ul aria-label={group.category} className="flex flex-wrap gap-2.5">
+                {group.items.map((tool) => (
+                  <li key={tool} style={{ "--chip-accent": brandAccents[tool] ?? "var(--primary)" } as CSSProperties} className="toolkit-chip flex min-h-9 min-w-0 max-w-full items-center gap-2 rounded-full border py-1.5 pl-1.5 pr-3.5 text-xs font-medium leading-5 text-foreground/90">
+                    <ToolIcon name={tool} /><span className="min-w-0 break-words">{tool}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 }

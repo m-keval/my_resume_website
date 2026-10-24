@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const fontSans = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const fontHeading = Outfit({
-  variable: "--font-heading",
-  subsets: ["latin"],
-});
+const fontSans = localFont({ src: "./fonts/geist.woff2", variable: "--font-geist", display: "swap" });
+const fontMono = localFont({ src: "./fonts/geist-mono.woff2", variable: "--font-geist-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Keval Mangroliya | Flutter Developer Portfolio",
-  description: "Portfolio of Keval Mangroliya, a Flutter Developer with over 6 years of experience building high-quality, scalable mobile applications.",
+  title: "Keval Mangroliya | Digital Card",
+  description: "Hi, I’m Keval — an independent Flutter developer in Surat. Explore my mobile app projects, how I work, and let’s build something useful.",
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 
 export default function RootLayout({
   children,
@@ -27,17 +21,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontSans.variable} ${fontHeading.variable} h-full antialiased font-sans`}
+      className={`${fontSans.variable} ${fontMono.variable} h-full antialiased font-sans`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SmoothScrollProvider>
+            {children}
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>
